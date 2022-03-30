@@ -1,0 +1,3 @@
+region: <target-aws-region>
+service: <service-name>
+remote_s3_bucket: <remote-state-s3-bucket>
