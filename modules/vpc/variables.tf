@@ -1,11 +1,16 @@
 variable "region" {
-    type = string
+  type = string
 }
 
 variable "service" {
-    type = string
+  type = string
 }
 
 variable "environment" {
-    type = string
+  type = string
+}
+
+variable "eks_cluster_name" {
+  type    = string
+  default = ""
 }

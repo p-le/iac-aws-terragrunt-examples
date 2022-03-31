@@ -1,5 +1,6 @@
 include "root" {
-  path = find_in_parent_folders()
+  path   = find_in_parent_folders()
+  expose = true # Expose all attributes from root include
 }
 
 terraform {
@@ -22,4 +23,5 @@ inputs = {
   vpc_id             = dependency.vpc.outputs.vpc_id
   public_subnet_ids  = values(dependency.vpc.outputs.public_subnet_ids)
   private_subnet_ids = values(dependency.vpc.outputs.private_subnet_ids)
+  cluster_name       = "${include.root.inputs.service}-${include.root.inputs.region}-basic-cluster"
 }

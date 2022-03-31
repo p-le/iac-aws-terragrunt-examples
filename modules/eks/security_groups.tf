@@ -60,6 +60,10 @@ resource "aws_security_group" "woker_node_sg" {
     protocol        = "tcp"
     security_groups = [aws_security_group.cluster_sg.id]
   }
+
+  tags = {
+    "kubernetes.io/cluster/${aws_eks_cluster.app.name}" : "owned"
+  }
 }
 
 # Use aws_security_group_rule to avoid cycle reference
