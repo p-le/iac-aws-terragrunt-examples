@@ -15,7 +15,7 @@ variable "vpc_id" {
 }
 
 variable "cluster_name" {
-  type    = string
+  type = string
 }
 
 variable "public_subnet_ids" {
@@ -35,6 +35,17 @@ variable "controle_plane_logging" {
     is_enabled        = false
     retention_in_days = 7
   }
+}
+
+variable "key_name" {
+  type        = string
+  description = "EC2 Keypair Name"
+}
+
+variable "instance_type" {
+  type        = string
+  description = "Instance Type of Worker Node"
+  default     = "t2.micro"
 }
 
 variable "local_workstation_external_ip" {

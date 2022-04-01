@@ -22,6 +22,10 @@ resource "aws_subnet" "private" {
   availability_zone       = each.value
   cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, index(data.aws_availability_zones.available.names, each.value) + 21)
   map_public_ip_on_launch = false
+
+  tags = var.eks_cluster_name != "" ? {
+    "kubernetes.io/cluster/${var.eks_cluster_name}" : "shared"
+  } : {}
 }
 
 output "vpc_id" {
