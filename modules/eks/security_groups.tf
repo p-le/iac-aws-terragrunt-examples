@@ -1,6 +1,6 @@
 # Controls networking access to the Kubernetes masters
 resource "aws_security_group" "cluster_sg" {
-  name        = "${var.service}-${var.region}-eks-cluster-sg"
+  name        = "${var.service}-eks-cluster-sg"
   description = "Cluster communication with worker nodes"
   vpc_id      = var.vpc_id
 
@@ -26,7 +26,7 @@ resource "aws_security_group" "cluster_sg" {
 
 # Controls networking access to the Kubernetes worker nodes
 resource "aws_security_group" "woker_node_sg" {
-  name        = "${var.service}-${var.region}-eks-node-sg"
+  name        = "${var.service}-eks-node-sg"
   description = "Security group for all nodes in the cluster"
   vpc_id      = var.vpc_id
 
@@ -59,6 +59,17 @@ resource "aws_security_group" "woker_node_sg" {
     to_port         = 65535
     protocol        = "tcp"
     security_groups = [aws_security_group.cluster_sg.id]
+  }
+
+  dynamic "ingress" {
+    for_each = toset(compact([var.local_workstation_external_ip]))
+    content {
+      description = "Allow local workstation to SSH to EKS Work Nodes"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   tags = {

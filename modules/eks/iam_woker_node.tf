@@ -14,11 +14,6 @@ resource "aws_iam_role" "worker_node_role" {
   assume_role_policy = data.aws_iam_policy_document.worker_node_assume_role_policy.json
 }
 
-resource "aws_iam_instance_profile" "worker_node" {
-  name = "${var.service}-${var.region}-eks-node-instance-profile"
-  role = aws_iam_role.worker_node_role.name
-}
-
 resource "aws_iam_role_policy_attachment" "cluster_node_AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.worker_node_role.name

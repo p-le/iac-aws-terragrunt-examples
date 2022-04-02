@@ -26,7 +26,7 @@ variable "private_subnet_ids" {
   type = list(string)
 }
 
-variable "controle_plane_logging" {
+variable "control_plane_logging" {
   type = object({
     is_enabled        = bool
     retention_in_days = number
@@ -37,15 +37,28 @@ variable "controle_plane_logging" {
   }
 }
 
-variable "key_name" {
-  type        = string
-  description = "EC2 Keypair Name"
+variable "cluster_config" {
+  type = object({
+    use_private_subnet = bool
+  })
+  description = "use_private_subnet: Use Private Subnets or Public Subnets"
+  default = {
+    use_private_subnet = false
+  }
 }
 
-variable "instance_type" {
-  type        = string
-  description = "Instance Type of Worker Node"
-  default     = "t2.micro"
+variable "primary_node_group_config" {
+  type = object({
+    key_name           = string
+    instance_type      = string
+    use_private_subnet = bool
+  })
+  description = "key_name: EC2 Keypair Name, instance_type: Instance Type of Worker Node"
+  default = {
+    key_name           = ""
+    instance_type      = "t3.micro"
+    use_private_subnet = false
+  }
 }
 
 variable "local_workstation_external_ip" {

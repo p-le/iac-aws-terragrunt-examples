@@ -16,4 +16,4 @@ Please check base template README.md: [iac-aws-template-terragrunt](https://gith
 
 | Examples                              | Description                                                                          |
 | ------------------------------------- | ------------------------------------------------------------------------------------ |
-| infrastructure-live/basic-eks-cluster | Create a basic EKS Cluster in target region with 2 public subnets, 2 private subnets |
+| infrastructure-live/basic-eks-cluster | Create a basic EKS Cluster & Managed Node Groups using custom Launch Template. |

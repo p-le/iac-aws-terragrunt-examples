@@ -27,9 +27,12 @@ RUN wget -O awscliv2.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zi
   unzip awscliv2.zip && \
   ./aws/install
 
-RUN wget -O /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64
+RUN wget -O /usr/local/bin/terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/${TERRAGRUNT_VERSION}/terragrunt_linux_amd64 \
+  && wget -O /usr/local/bin/kubectl https://dl.k8s.io/release/v1.23.0/bin/linux/amd64/kubectl \
+  && wget https://github.com/weaveworks/eksctl/releases/download/v0.90.0/eksctl_Linux_amd64.tar.gz -O /tmp/eksctl_Linux_amd64.tar.gz \
+  && tar -xf /tmp/eksctl_Linux_amd64.tar.gz -C /usr/local/bin
 
-RUN chmod a+x /usr/local/bin/terraform && \
-    chmod a+x /usr/local/bin/terragrunt
+
+RUN chmod a+x /usr/local/bin/*
 
 USER $USERNAME
